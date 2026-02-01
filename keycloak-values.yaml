@@ -1,13 +1,42 @@
+global:
+  security:
+    allowInsecureImages: true
+
 auth:
   adminUser: ""
   adminPassword: ""
   existingSecret: keycloak-admin-credentials
   passwordSecretKey: adminPassword
 
+image:
+  registry: public.ecr.aws
+  repository: bitnami/keycloak
+  tag: 26.3.4-debian-12-r1
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 1Gi
+  limits:
+    cpu: 1
+    memory: 2Gi
+
 proxy: edge
 
 postgresql:
   enabled: true
+  image:
+    registry: public.ecr.aws
+    repository: bitnami/postgresql
+    tag: 17.4.0-debian-12-r0
+  volumePermissions:
+    image:
+      registry: public.ecr.aws
+      repository: bitnami/os-shell
+  metrics:
+    image:
+      registry: public.ecr.aws
+      repository: bitnami/postgres-exporter
   auth:
     username: keycloak
     password: ""
