@@ -1,0 +1,30 @@
+auth:
+  adminUser: ""
+  adminPassword: ""
+  existingSecret: keycloak-admin-credentials
+  passwordSecretKey: adminPassword
+
+proxy: edge
+
+postgresql:
+  enabled: true
+  auth:
+    username: keycloak
+    password: ""
+    database: keycloak
+    existingSecret: keycloak-db-credentials
+    secretKeys:
+      userPasswordKey: dbPassword
+
+extraEnvVarsSecret: keycloak-admin-credentials
+
+service:
+   want type: ClusterIP
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hostname: keycloak.local
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+
